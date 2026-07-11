@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>작전명: 다섯 개의 열쇠</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b12; --panel:#0d1420; --line:#1d2a3d;
+    --red:#ff3b4e; --amber:#ffc93f; --cyan:#4fd8ff; --green:#5dffa1;
+    --text:#dbe6f2; --dim:#8b9cb3;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:'Nanum Gothic Coding',monospace;
+    display:flex;flex-direction:column;justify-content:space-between;
+    min-height:100vh;overflow:hidden;
+  }
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px)}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:11;
+    background:radial-gradient(ellipse at 50% 115%,rgba(255,59,78,.16),transparent 55%),
+               radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.5) 100%)}
+
+  .band{
+    padding:.7vh 0;background:repeating-linear-gradient(-45deg,var(--red) 0 22px,#3a0d13 22px 44px);
+    color:#fff;font-weight:700;font-size:clamp(10px,1.1vw,14px);letter-spacing:.35em;
+    text-align:center;white-space:nowrap;overflow:hidden;
+  }
+
+  main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:1.6vh 4vw;text-align:center}
+
+  .sys{font-size:clamp(10px,1.1vw,13px);letter-spacing:.3em;color:var(--green);margin-bottom:1.4vh}
+  .sys .err{color:var(--red);font-weight:700}
+  .blink{animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  h1{font-family:'Black Han Sans',sans-serif;font-weight:400;line-height:1.1;
+    font-size:clamp(34px,6.8vw,88px);animation:glitch 4s infinite}
+  h1 .red{color:var(--red)}
+  @keyframes glitch{
+    0%,93%,100%{transform:none;text-shadow:none}
+    94%{transform:translate(-3px,1px);text-shadow:3px 0 var(--cyan),-3px 0 var(--red)}
+    96%{transform:translate(2px,-1px);text-shadow:-3px 0 var(--cyan),3px 0 var(--red)}
+    98%{transform:translate(-1px,0);text-shadow:2px 0 var(--red)}
+  }
+  .sub{margin-top:1.3vh;font-size:clamp(12px,1.55vw,19px);line-height:1.85}
+  .sub strong{color:var(--amber)}
+  .sub .t{font-family:'Black Han Sans';color:var(--red);font-size:1.25em;letter-spacing:.05em}
+
+  .missions{display:flex;gap:1vw;margin-top:2.8vh;width:min(1300px,95vw);align-items:stretch}
+  .m{
+    flex:1;border:1px solid var(--line);background:var(--panel);
+    padding:2vh .9vw 1.8vh;position:relative;text-align:center;
+    display:flex;flex-direction:column;
+  }
+  .m::before{content:attr(data-n);position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--bg);padding:0 10px;font-family:'Black Han Sans';
+    color:var(--red);font-size:clamp(14px,1.5vw,19px)}
+  .m .where{font-weight:700;font-size:clamp(13px,1.3vw,17px);margin-bottom:1.2vh;color:var(--cyan)}
+  .m .lbl{font-size:clamp(9px,.85vw,11px);letter-spacing:.3em;margin-bottom:.5vh}
+  .m .lbl.s{color:var(--red)}
+  .m .lbl.g{color:var(--green)}
+  .m .situ{color:var(--dim);font-size:clamp(10px,1vw,13px);line-height:1.7;margin-bottom:1.4vh;flex:1}
+  .m .task{font-size:clamp(10.5px,1.05vw,13.5px);line-height:1.7;font-weight:700;
+    padding-top:1.2vh;border-top:1px dashed var(--line)}
+  .m .task em{font-style:normal;color:var(--amber)}
+
+  .win{margin-top:2.4vh;font-size:clamp(12px,1.35vw,17px);color:var(--dim)}
+  .win b{color:var(--green)}
+
+  footer{display:flex;justify-content:space-between;align-items:center;
+    padding:1.1vh 3vw;font-size:clamp(10px,1vw,13px);color:var(--dim);letter-spacing:.15em;
+    border-top:1px solid var(--line)}
+  footer .cd{font-family:'Black Han Sans';color:var(--red);font-size:clamp(16px,1.9vw,24px);letter-spacing:.08em}
+
+  @media (max-width:760px){
+    body{overflow:auto}
+    .missions{flex-direction:column;gap:2.6vh}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="band">⚠ EMERGENCY · 비상 · EMERGENCY · 비상 · EMERGENCY · 비상 · EMERGENCY · 비상 · EMERGENCY ⚠</div>
+
+<main>
+  <div class="sys">&gt; 부산과학고 통합관제 시스템 ... <span class="err">제어권 상실</span> — UNKNOWN_AI 접속 중<span class="blink">▌</span></div>
+
+  <h1>AI가 학교를 <span class="red">장악했다</span></h1>
+
+  <p class="sub">
+    폭주한 AI가 학교의 로봇과 CCTV를 장악하고 모든 비밀번호를 해킹했다.<br>
+    다섯 명의 암호 요원이 다섯 개의 거점을 <span class="t">24시간</span> 지켜내면 — 구조대가 도착한다.
+    <strong>작전명 : 다섯 개의 열쇠</strong>
+  </p>
+
+  <div class="missions">
+    <div class="m" data-n="01">
+      <div class="where">기숙사동</div>
+      <div class="lbl s">상황</div>
+      <div class="situ">인근 주민들이 대피해 있다. 정찰 드론이 문 앞을 맴돌며 사람들이 잠금을 푸는 손동작을 몰래 촬영한다.</div>
+      <div class="lbl g">미션</div>
+      <div class="task">드론이 훔쳐봐도 <em>절대 풀 수 없는 출입 잠금</em>으로 대피소를 지켜라</div>
+    </div>
+    <div class="m" data-n="02">
+      <div class="where">서버실</div>
+      <div class="lbl s">상황</div>
+      <div class="situ">AI가 모든 통신을 감청하고, 우리인 척 "구조 취소" 가짜 메시지를 보내 구조대를 속이려 한다.</div>
+      <div class="lbl g">미션</div>
+      <div class="task">AI가 가로채도 읽을 수 없고, <em>진짜 우리가 보냈음을 증명</em>하는 SOS를 송신하라</div>
+    </div>
+    <div class="m" data-n="03">
+      <div class="where">별샘천문대</div>
+      <div class="lbl s">상황</div>
+      <div class="situ">학교에서 가장 높은 이곳만 구조대와 무전이 닿는다. 로봇이 인간을 흉내 내며 침투를 시도한다.</div>
+      <div class="lbl g">미션</div>
+      <div class="task"><em>인간만 통과</em>시키는 출입 인증으로 유일한 교신 기지를 사수하라</div>
+    </div>
+    <div class="m" data-n="04">
+      <div class="where">방송실</div>
+      <div class="lbl s">상황</div>
+      <div class="situ">교내 곳곳에 생존자들이 흩어져 있다. AI가 방송을 지켜보지만, 로봇의 센서는 색을 구분하지 못한다.</div>
+      <div class="lbl g">미션</div>
+      <div class="task">AI는 못 읽고 <em>생존자만 해독할 수 있는 신호</em>로 집결 장소를 알려라</div>
+    </div>
+    <div class="m" data-n="05">
+      <div class="where">로봇제어연구실</div>
+      <div class="lbl s">상황</div>
+      <div class="situ">폭주 AI를 멈출 마스터 콘솔이 있다. AI가 초당 10억 번의 무차별 대입 공격으로 잠금을 두드린다.</div>
+      <div class="lbl g">미션</div>
+      <div class="task">AI도 <em>24시간 안에 못 뚫는 잠금</em>을 만들어 제어권을 되찾아라</div>
+    </div>
+  </div>
+
+  <p class="win">다섯 요원이 각자 연구한 암호로 거점을 방어하라. 다섯 열쇠가 모두 지켜지면 — <b>부산과학고 탈환 성공.</b></p>
+</main>
+
+<footer>
+  <span>BUSAN SCIENCE HIGH SCHOOL · 영재원 프로젝트 2026</span>
+  <span class="cd" id="cd">24:00:00</span>
+</footer>
+
+<script>
+let s=24*3600;
+const el=document.getElementById('cd');
+setInterval(()=>{s=Math.max(0,s-1);
+  const h=String(Math.floor(s/3600)).padStart(2,'0'),
+        m=String(Math.floor(s%3600/60)).padStart(2,'0'),
+        c=String(s%60).padStart(2,'0');
+  el.textContent=`${h}:${m}:${c}`;},1000);
+</script>
+</body>
+</html>
